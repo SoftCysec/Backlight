@@ -23,7 +23,7 @@ jobs:
         GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
       run: |
         echo "$GPG_PRIVATE_KEY" | gpg --batch --import
-        echo "$GPG_PASSPHRASE" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback --edit-key "<a key>" trust quit
+        echo "$GPG_PASSPHRASE" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback --edit-key 441238F15933B87A95BE3CACF1B867E3E00AC6B8 trust quit
 
     - name: Build Debian package
       run: |
