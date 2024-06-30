@@ -32,7 +32,7 @@ jobs:
 
     - name: Upload package to PPA
       env:
-        PPA: your-ppa-name/ppa
+        PPA: softcysec/ppa
         LAUNCHPAD_USERNAME: ${{ secrets.LAUNCHPAD_USERNAME }}
         LAUNCHPAD_PASSWORD: ${{ secrets.LAUNCHPAD_PASSWORD }}
       run: |
