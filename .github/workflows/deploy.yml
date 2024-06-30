@@ -15,7 +15,7 @@ jobs:
     - name: Set up environment
       run: |
         sudo apt-get update
-        sudo apt-get install -y devscripts debhelper dh-make gnupg dput
+        sudo apt-get install -y devscripts debhelper dh-make gnupg dput build-essential
 
     - name: Import GPG key
       env:
@@ -27,14 +27,15 @@ jobs:
 
     - name: Build Debian package
       run: |
-        mkdir -p build && cp -r src/* build/
-        dpkg-deb --build build backlight_1.0_all.deb
+        cd src
+        debuild -us -uc
 
-    - name: Upload package to PPA
+    - name: Sign and upload package to PPA
       env:
         PPA: softcysec/ppa
         LAUNCHPAD_USERNAME: ${{ secrets.LAUNCHPAD_USERNAME }}
         LAUNCHPAD_PASSWORD: ${{ secrets.LAUNCHPAD_PASSWORD }}
       run: |
-        debsign -k ${LAUNCHPAD_USERNAME} backlight_1.0_all.deb
-        dput ppa:${PPA} backlight_1.0_all.deb
+        cd ..
+        debsign -k 441238F15933B87A95BE3CACF1B867E3E00AC6B8 ../backlight_1.0_amd64.changes
+        dput ppa:${PPA} ../backlight_1.0_amd64.changes
