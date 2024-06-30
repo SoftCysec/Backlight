@@ -36,6 +36,5 @@ jobs:
         LAUNCHPAD_USERNAME: ${{ secrets.LAUNCHPAD_USERNAME }}
         LAUNCHPAD_PASSWORD: ${{ secrets.LAUNCHPAD_PASSWORD }}
       run: |
-        cd ..
-        debsign -k 441238F15933B87A95BE3CACF1B867E3E00AC6B8 ../backlight_1.0_amd64.changes
-        dput ppa:${PPA} ../backlight_1.0_amd64.changes
+        debsign -k 441238F15933B87A95BE3CACF1B867E3E00AC6B8 ../backlight_1.0-1_amd64.changes
+        dput ppa:${PPA} ../backlight_1.0-1_amd64.changes

@@ -1,9 +1,13 @@
-Package: backlight
-Version: 1.0
+Source: backlight
 Section: utils
 Priority: optional
-Architecture: all
-Depends: xbindkeys
-Maintainer: Dedan Okware softengdedan@gmail.com
+Maintainer: Dedan Okware <softengdedan@gmail.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: http://example.com
+
+Package: backlight
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, xbindkeys
 Description: A package to toggle keyboard backlight using xset
  This package installs a script and configures xbindkeys to toggle the keyboard backlight on and off.
