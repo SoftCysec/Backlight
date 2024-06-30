@@ -25,6 +25,11 @@ jobs:
         echo "$GPG_PRIVATE_KEY" | gpg --batch --import
         echo -e "5\ny\n" | gpg --batch --yes --command-fd 0 --edit-key 441238F15933B87A95BE3CACF1B867E3E00AC6B8 trust
 
+    - name: Create original source tarball
+      run: |
+        cd src
+        tar czf ../backlight_1.0.orig.tar.gz *
+
     - name: Build Debian package
       run: |
         cd src
