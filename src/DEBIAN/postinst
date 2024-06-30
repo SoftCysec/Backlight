@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Ensure xbindkeys starts at boot
+if ! grep -q "xbindkeys" /etc/rc.local; then
+  sed -i '$i xbindkeys' /etc/rc.local
+fi
+
+# Copy xbindkeys configuration to the home directory
+cp /etc/xbindkeys/.xbindkeysrc ~/.xbindkeysrc

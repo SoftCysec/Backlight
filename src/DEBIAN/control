@@ -1,0 +1,9 @@
+Package: backlight
+Version: 1.0
+Section: utils
+Priority: optional
+Architecture: all
+Depends: xbindkeys
+Maintainer: Dedan Okware softengdedan@gmail.com
+Description: A package to toggle keyboard backlight using xset
+ This package installs a script and configures xbindkeys to toggle the keyboard backlight on and off.
