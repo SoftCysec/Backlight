@@ -1,0 +1,40 @@
+name: Deploy to PPA
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y devscripts debhelper dh-make gnupg dput
+
+    - name: Import GPG key
+      env:
+        GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+        GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+      run: |
+        echo "$GPG_PRIVATE_KEY" | gpg --batch --import
+        echo "$GPG_PASSPHRASE" | gpg --batch --passphrase-fd 0 --pinentry-mode loopback --edit-key "<a key>" trust quit
+
+    - name: Build Debian package
+      run: |
+        mkdir -p build && cp -r src/* build/
+        dpkg-deb --build build backlight_1.0_all.deb
+
+    - name: Upload package to PPA
+      env:
+        PPA: your-ppa-name/ppa
+        LAUNCHPAD_USERNAME: ${{ secrets.LAUNCHPAD_USERNAME }}
+        LAUNCHPAD_PASSWORD: ${{ secrets.LAUNCHPAD_PASSWORD }}
+      run: |
+        debsign -k ${LAUNCHPAD_USERNAME} backlight_1.0_all.deb
+        dput ppa:${PPA} backlight_1.0_all.deb
